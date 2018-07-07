@@ -1,0 +1,7 @@
+/instalar angular
+
+npm install -g @angular/cli
+
+/crear un proyecto de angular
+
+ng new nombreProyecto
