@@ -12,6 +12,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 //routes
+
 require('./routes/routes')(app);
 
 //static filess

@@ -1,3 +1,15 @@
+/correr el servidor solo
+npm run dev
+
+
+instalar nodemon que es para que corra y cambie cambios solo el servidor
+npm install nodemon -D
+-> luego de esto ir a package.json y dejarlo asi
+"scripts": {
+    "dev": "nodemon server/index.js"
+  },
+
+
 /instalar angular
 
 npm install -g @angular/cli
@@ -5,3 +17,9 @@ npm install -g @angular/cli
 /crear un proyecto de angular
 
 ng new nombreProyecto
+
+// crear componentes
+ng g c nombreComplemento
+
+//crear class
+ng g class user

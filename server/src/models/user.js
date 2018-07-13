@@ -18,26 +18,28 @@ userModel.getUsers = (callBack) => {
                 throw err;
             }
             else {
-                callBack(null,{
-                    "msg": "uno"
-                } );
+                callBack(null, rows);
             }
         })
     }
 }
 userModel.getUser = (id, callBack) => {
 
-    var sqlExists = `
-    SELECT * FROM users WHERE id = ${connection.escape(id)}
-  `;
-    connection.query(sqlExists, (err, rows) => {
-        if (err) {
-            throw err;
-        }
-        else {
-            callBack(null, rows);
-        }
-    })
+   
+    if (connection){
+        var sqlExists = `
+        SELECT * FROM users WHERE id = ${connection.escape(id)}
+      `;
+      
+    connection.query(sqlExists, (err, row) => {
+        if (row) {
+           callBack(null, row);
+           }
+           else {
+               console.log("pailas")
+           }
+   })
+    }
 }
 
 userModel.insertUser = (userData, callBack) => {
