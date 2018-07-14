@@ -24,8 +24,6 @@ userModel.getUsers = (callBack) => {
     }
 }
 userModel.getUser = (id, callBack) => {
-
-   
     if (connection){
         var sqlExists = `
         SELECT * FROM users WHERE id = ${connection.escape(id)}

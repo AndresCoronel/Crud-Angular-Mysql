@@ -32,7 +32,7 @@ module.exports = function (app) {
       if (data && data.insertId) {
         res.status(200).json({
           success: true,
-          msg: "Inserted a new user",
+          msg: "Nuevo usuario agregado",
           data: data
         });
         // res.redirect('/users/' + data.insertId);
