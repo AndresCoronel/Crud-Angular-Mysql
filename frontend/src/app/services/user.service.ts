@@ -8,7 +8,7 @@ export class UserService {
 
   selectedUser: User;
   users: User[];
-  
+
   readonly URL_API = 'http://localhost:3000/users'
   constructor(private http: HttpClient) { 
     this.selectedUser = new User();
@@ -25,7 +25,7 @@ export class UserService {
     return this.http.put(this.URL_API+ `/${user.id}`, user);
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string) {
     return this.http.delete(this.URL_API+`/${id}` );
   }
 
