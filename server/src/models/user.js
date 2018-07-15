@@ -81,15 +81,15 @@ userModel.updateUser = (userData, callBack) => {
     }
 }
 
-userModel.deleteUser = (id, callback) => {
+userModel.deleteUser = async (id, callback) => {
     if (connection) {
         var sqlExists = `
         SELECT * FROM users WHERE id = ${connection.escape(id)}
       `;
-        connection.query(sqlExists, (err, row) => {
+      await connection.query(sqlExists, (err, row) => {
             if (row) {
                 var sql = `DELETE FROM users WHERE id=` + connection.escape(id);
-                connection.query(sql, (err, result) => {
+               connection.query(sql, (err, result) => {
                     if (err) {
                         throw err;
                     } else {

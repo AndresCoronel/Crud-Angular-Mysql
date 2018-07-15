@@ -4,6 +4,7 @@
       <div class="card">
         <div class="card-content">
           <form #userForm="ngForm" (ngSubmit)="addUser(userForm)">
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="userService.selectedUser.id">
             <div class="row">
               <div class="input-field col s12">
                 <input type="text" name="username" #username="ngModel" [(ngModel)]="userService.selectedUser.username" placeholder="ingrese su usuario ">
@@ -15,11 +16,11 @@
                 <input type="text" name="password" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="ingrese su email ">
               </div>
               <div class="card-action">
-                <div class="input-field col s12 " >
-                  <button class="btn left"  >Guardar</button>
-                  <button class="btn right" (click) = "resetForm(userForm)" >Limpiar</button>
+                <div class="input-field col s12 ">
+                  <button class="btn left">Guardar</button>
+                  <button class="btn right" (click)="resetForm(userForm)">Limpiar</button>
                 </div>
-              </div>  
+              </div>
 
 
             </div>
@@ -29,31 +30,31 @@
     </div>
 
     <div class="col s7">
-        <table>
-            <thead>
-              <th>Username</th>
-              <th>Email</th>
-              <th>id</th>
-              <th>Password</th>
-              <th>Operations</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let user of userService.users">
-                <td>{{user.username}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.id}}</td>
-                <td>{{user.password}}</td>
-                <td>
-                  <a  style="cursor: pointer;">
-                    <i class="material-icons">edit</i>
-                  </a>
-                  <a (click)="deletedUser(user.id)" style="color: green; cursor: pointer;">
-                    <i class="material-icons">delete</i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <table>
+        <thead>
+          <th>Username</th>
+          <th>Email</th>
+          <th>id</th>
+          <th>Password</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of userService.users">
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.id}}</td>
+            <td>{{user.password}}</td>
+            <td>
+              <a (click)="editUser(user)" style="cursor: pointer;">
+                <i class="material-icons">edit</i>
+              </a>
+              <a (click)="deletedUser(user.id)" style="color: green; cursor: pointer;">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

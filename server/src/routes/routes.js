@@ -73,6 +73,7 @@ module.exports = function (app) {
   app.delete('/users/:id', (req, res) => {
     var id = req.params.id;
     User.getUsers((err, data) => {
+      console.log("recibio los ussuarios")
       res.status(200).json(data);
     })
 

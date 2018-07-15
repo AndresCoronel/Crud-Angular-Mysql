@@ -25,11 +25,23 @@ export class UsersComponent implements OnInit {
   }
   addUser(form: NgForm ){
     console.log(form.value)
-    this.userService.postUser(form.value).subscribe(res=>{
-      console.log(res);
-      this.resetForm(form);
-      this.getUsers();
-    })
+    if(form.value.id){
+      this.userService.putUser(form.value).subscribe(res=>{
+        console.log(res);
+        this.resetForm(form);
+        M.toast({html: 'Usuario actualizado'})
+        this.getUsers();
+     
+      })
+    }else{
+      this.userService.postUser(form.value).subscribe(res=>{
+        console.log(res);
+        this.resetForm(form);
+        M.toast({html: 'Usuario agregado'})
+        this.getUsers();
+      })
+    }
+    
 
   }
   deletedUser(id: number ){
@@ -37,10 +49,16 @@ export class UsersComponent implements OnInit {
     this.userService.deleteUser(id)
     .subscribe(res=>{
       M.toast({html: 'deleted successfuly'})
-      this.resetForm();
       this.getUsers();  
     } )
   }}
+
+  editUser(user: User){
+    this.userService.selectedUser = user;
+
+  }
+
+
   resetForm(form?: NgForm){
     if(form){
       form.reset();
