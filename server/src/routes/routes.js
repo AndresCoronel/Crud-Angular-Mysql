@@ -1,10 +1,10 @@
-const User = require('../models/user');
+const Cliente = require('../models/cliente');
 
 module.exports = function (app) {
 //obtener un usuario
-  app.get('/users/:id', (req, res) => {
+  app.get('/cliente/:id', (req, res) => {
     var id = req.params.id;
-    User.getUser(id, (err, data) => {
+    Cliente.getCliente(id, (err, data) => {
       if (data) {
         res.status(200).json(data);
     }
@@ -12,30 +12,29 @@ module.exports = function (app) {
   });
 
 //obtener todos los usuarios
-  app.get('/users', (req, res) => {
-    User.getUsers((err, data) => {
+  app.get('/cliente', (req, res) => {
+    Cliente.getClientes((err, data) => {
       res.status(200).json(data);
     })
   });
 
 //ingresart datos
-  app.post('/users', (req, res) => {
-    const userData = {
+  app.post('/cliente', (req, res) => {
+    var clienteData = {
       id: null,
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      created_at: null,
-      updated_at: null
+      cedulaCliente: req.body.cedulaCliente,
+      nombreCliente: req.body.nombreCliente,
+      apellidoCliente: req.body.apellidoCliente,
+      telefonoCliente: req.body.telefonoCliente,
     };
-    User.insertUser(userData, (err, data) => {
+    Cliente.insertCliente(clienteData, (err, data) => {
       if (data && data.insertId) {
         res.status(200).json({
           success: true,
           msg: "Nuevo usuario agregado",
           data: data
         });
-        // res.redirect('/users/' + data.insertId);
+        // res.redirect('/Clientes/' + data.insertid);
       } else {
         res.status(500).json({
           success: false,
@@ -47,16 +46,15 @@ module.exports = function (app) {
 
 
 //actualizar datos
-  app.put('/users/:id', (req, res) => {
-    const userData = {
+  app.put('/cliente/:id', (req, res) => {
+    const clienteData = {
       id: req.params.id,
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      created_at: null,
-      updated_at: null
+      cedulaCliente: req.body.cedulaCliente,
+      nombreCliente: req.body.nombreCliente,
+      apellidoCliente: req.body.apellidoCliente,
+      telefonoCliente: req.body.telefonoCliente,
     };
-    User.updateUser(userData, (err, data) => {
+    Cliente.updateCliente(clienteData, (err, data) => {
       if (data && data.msg) {
         res.status(200).json({ data });
       } else {
@@ -70,15 +68,15 @@ module.exports = function (app) {
   })
 
 //eliminar un usuario
-  app.delete('/users/:id', (req, res) => {
+  app.delete('/cliente/:id', (req, res) => {
     var id = req.params.id;
-    User.getUsers((err, data) => {
+    Cliente.getClientes((err, data) => {
       console.log("recibio los ussuarios")
       res.status(200).json(data);
     })
 
-    User.deleteUser(id, (err, data) => {
-      if (data && data.msg === 'deleted' || data.msg == 'not Exists') {
+    Cliente.deletedCliente(id, (err, data) => {
+      if (data) {
         res.json({
           success: 'true',
           data

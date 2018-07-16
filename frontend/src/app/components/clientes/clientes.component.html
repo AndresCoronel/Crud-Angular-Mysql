@@ -1,0 +1,74 @@
+<div class="content">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form #clienteForm="ngForm" (ngSubmit)="addCliente(clienteForm)">
+              <input type="hidden" name="id" #id="ngModel" [(ngModel)]="clienteService.selectedCliente.id" >
+            <span class="card-title" style="text-align: center">Personal Minero</span>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" name="cedulaCliente" #cedulaCliente="ngModel" [(ngModel)]="clienteService.selectedCliente.cedulaCliente"
+                      placeholder="ingrese la cedula">
+                  </div>
+              <div class="input-field col s12">
+                <input type="text" name="nombreCliente" #nombreCliente="ngModel" [(ngModel)]="clienteService.selectedCliente.nombreCliente"
+                  placeholder="nombres">
+              </div>
+              <div class="input-field col s12">
+                <input type="text" name="apellidoCliente" #apellidoCliente="ngModel" [(ngModel)]="clienteService.selectedCliente.apellidoCliente"
+                  placeholder="apellidos ">
+              </div>
+              <div class="input-field col s12">
+                <input type="text" name="telefonoCliente" #telefonoCliente="ngModel" [(ngModel)]="clienteService.selectedCliente.telefonoCliente"
+                  placeholder="telefono/celular ">
+              </div>
+              <div class="card-action">
+                <div class="input-field col s12 ">
+                  <button class="btn left">Guardar</button>
+                  <button class="btn right" (click)="resetForm(clienteForm)">Limpiar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s7">
+      <table>
+        <thead>
+          <th>nombre</th>
+          <th>telefono</th>
+          <th>cedula</th>
+          <th>apellidos</th>
+          <th>Saldo</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clienteService.clientes">
+            <td>{{cliente.nombreCliente}}</td>
+            <td>{{cliente.telefonoCliente}}</td>
+            <td>{{cliente.cedulaCliente}}</td>
+            <td>{{cliente.apellidoCliente}}</td>
+            <td>20000</td>
+            <td>
+              <a (click)="editCliente(cliente)" style="cursor: pointer;">
+                <i class="material-icons">edit</i>
+              </a>
+              <a (click)="deletedCliente(cliente.id)" style="color: green; cursor: pointer;">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Ocular elemento -->
+  <span [hidden]="true">Oculto</span>
+
+  <!-- Mostrar elemento -->
+  <span [hidden]="false">Visible</span>
+
+</div>

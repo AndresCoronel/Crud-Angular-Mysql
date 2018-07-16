@@ -4,16 +4,16 @@ connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '123456',
-    database: 'testapirest'
+    database: 'elcoro'
 })
 
-let userModel = {
+let clienteModel = {
 
 };
 
-userModel.getUsers = (callBack) => {
+clienteModel.getClientes = (callBack) => {
     if (connection) {
-        connection.query('SELECT * FROM users ORDER BY id', (err, rows) => {
+        connection.query('SELECT * FROM cliente ORDER BY id', (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -23,10 +23,10 @@ userModel.getUsers = (callBack) => {
         })
     }
 }
-userModel.getUser = (id, callBack) => {
+clienteModel.getCliente = (id, callBack) => {
     if (connection){
         var sqlExists = `
-        SELECT * FROM users WHERE id = ${connection.escape(id)}
+        SELECT * FROM cliente WHERE id = ${connection.escape(id)}
       `;
       
     connection.query(sqlExists, (err, row) => {
@@ -40,10 +40,10 @@ userModel.getUser = (id, callBack) => {
     }
 }
 
-userModel.insertUser = (userData, callBack) => {
+clienteModel.insertCliente = (clienteData, callBack) => {
     if (connection) {
         connection.query(
-            'INSERT INTO users SET ?', userData, (err, result) => {
+            'INSERT INTO cliente SET ?', clienteData, (err, result) => {
 
                 if (err) {
                     throw err;
@@ -59,15 +59,14 @@ userModel.insertUser = (userData, callBack) => {
     }
 }
 
-userModel.updateUser = (userData, callBack) => {
+clienteModel.updateCliente = (clienteData, callBack) => {
     if (connection) {
-        const sql = `UPDATE users SET
-        username=${connection.escape(userData.username)}, 
-        password=${connection.escape(userData.password)},
-        email=${connection.escape(userData.email)}
-        WHERE id = ${connection.escape(userData.id)}
-        `
-
+        var sql = `UPDATE cliente SET
+        cedulaCliente=${connection.escape(clienteData.cedulaCliente)}, 
+        nombreCliente=${connection.escape(clienteData.nombreCliente)}, 
+        apellidoCliente=${connection.escape(clienteData.apellidoCliente)},
+        telefonoCliente=${connection.escape(clienteData.telefonoCliente)}
+        WHERE id = ${connection.escape(clienteData.id)}`;
         connection.query(sql, (err, result) => {
             if (err) {
                 throw err;
@@ -81,30 +80,28 @@ userModel.updateUser = (userData, callBack) => {
     }
 }
 
-userModel.deleteUser = async (id, callback) => {
+clienteModel.deletedCliente = async (id, callback) => {
     if (connection) {
         var sqlExists = `
-        SELECT * FROM users WHERE id = ${connection.escape(id)}
+        SELECT * FROM cliente WHERE id = ${connection.escape(id)}
       `;
       await connection.query(sqlExists, (err, row) => {
             if (row) {
-                var sql = `DELETE FROM users WHERE id=` + connection.escape(id);
+                var sql = `DELETE FROM cliente WHERE id=` + connection.escape(id);
                connection.query(sql, (err, result) => {
                     if (err) {
                         throw err;
                     } else {
-                        callback(null, {
-                            "msg": "deleted"
-                        });
+                        console.log('usuario eliminado')
                     }
                 });
             } else {
                 callback(null, {
-                    "msg": "not Exists"
+                    msg: "not Exists"
                 });
             }
         });
     }
 }
 
-module.exports = userModel;
+module.exports = clienteModel;
