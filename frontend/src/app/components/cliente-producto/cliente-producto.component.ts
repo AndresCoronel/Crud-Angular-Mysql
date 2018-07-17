@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Cliente } from '../../models/cliente';
 import { ClienteProductoService } from '../../services/cliente_producto/cliente-producto.service';
+import { ClienteProducto } from '../../models/clienteproducto';
 declare var M: any;
 @Component({
   selector: 'app-users',
@@ -19,13 +20,13 @@ export class ClienteProductoComponent implements OnInit {
   getClientesProductos() {
     this.clienteproductoService.getClientesProductos()
       .subscribe(res => {
-        this.clienteproductoService.clientes = res as Cliente[];
+        this.clienteproductoService.clientesproductos = res as ClienteProducto[];
       });
   }
   addCliente(form: NgForm ){
     console.log("esto llego del form" + form.value.id)
     if(form.value.id){
-      this.clienteproductoService.putCliente(form.value).subscribe(res=>{
+      this.clienteproductoService.putClientesProductos(form.value).subscribe(res=>{
         console.log(res);
         this.resetForm(form);
         M.toast({html: 'Cliente actualizado'})

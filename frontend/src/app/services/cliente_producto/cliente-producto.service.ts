@@ -22,11 +22,11 @@ export class ClienteProductoService {
     return this.http.post(this.URL_API, ClienteProducto);
    }
 
-   putProducto(clienteproducto: ClienteProducto){
+   putClientesProductos(clienteproducto: ClienteProducto){
     return this.http.put(this.URL_API+ `/${clienteproducto.id}`, clienteproducto);
   }
 
-  deleteProducto(id: number) {
+  deleteClientesProductos(id: number) {
     return this.http.delete(this.URL_API+`/${id}`);
    }
 
