@@ -29,12 +29,12 @@ export class ClienteProductoComponent implements OnInit {
       this.clienteproductoService.putClientesProductos(form.value).subscribe(res=>{
         console.log(res);
         this.resetForm(form);
-        M.toast({html: 'Cliente actualizado'})
+        M.toast({html: 'clienteProducto actualizado'})
         this.getClientesProductos();
      
       })
     }else{
-      this.clienteproductoService.postCliente(form.value).subscribe(res=>{
+      this.clienteproductoService.postClientesProductos(form.value).subscribe(res=>{
         console.log(res);
         this.resetForm(form);
         M.toast({html: 'Cliente agregado'})
@@ -44,17 +44,17 @@ export class ClienteProductoComponent implements OnInit {
     
 
   }
-  deletedCliente(id: number ){
+  deletedClientesProductos(id: number ){
     if(confirm('¿Quieres eliminar este cliente?')){
-    this.clienteproductoService.deleteCliente(id)
+    this.clienteproductoService.deleteClientesProductos(id)
     .subscribe(res=>{
       M.toast({html: 'Cliente eliminado'})
       this.getClientesProductos();  
     } )
   }}
 
-  editCliente(cliente: Cliente){
-    this.clienteproductoService.selectedCliente = cliente;
+  editClientesProductos(clienteproducto: ClienteProducto){
+    this.clienteproductoService.selectedClienteProducto = clienteproducto;
 
   }
 
@@ -62,7 +62,7 @@ export class ClienteProductoComponent implements OnInit {
   resetForm(form?: NgForm){
     if(form){
       form.reset();
-      this.clienteproductoService.selectedCliente = new Cliente();
+      this.clienteproductoService.selectedClienteProducto = new ClienteProducto();
     }
 
   }
