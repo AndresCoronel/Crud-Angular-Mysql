@@ -2,11 +2,16 @@
   <div class="nav-wrapper blue">
     <a href="#" class="brand-logo">Restaurante el Coronel</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="user.component.html">Personal Minero</a></li>
-      <li><a href="#">Personal casino</a></li>
-      <li><a href="collapsible.html">JavaScript</a></li>
+      <li class="nav-item">
+        <a href="#" routerLink="/inicio" routerLinkActive="active">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" routerLink="/clientes" routerLinkActive="active">Personal Minero</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" routerLink="/productos" routerLinkActive="active">Productos</a>
+      </li>
     </ul>
   </div>
 </nav>
-
-<app-users></app-users>
+<router-outlet></router-outlet>

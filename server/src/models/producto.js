@@ -1,19 +1,17 @@
 const mysql = require('mysql');
-
 connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '123456',
     database: 'elcoro'
 })
-
-let clienteModel = {
+let productoController = {
 
 };
 
-clienteModel.getClientes = (callBack) => {
+productoController.getProductos = (callBack) => {
     if (connection) {
-        connection.query('SELECT * FROM cliente ORDER BY id', (err, rows) => {
+        connection.query('SELECT * FROM producto ORDER BY id', (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -23,9 +21,9 @@ clienteModel.getClientes = (callBack) => {
         })
     }
 }
-clienteModel.getCliente = (id, callBack) => {
+productoController.getProducto = (id, callBack) => {
     if (connection){
-        var sqlExists = `SELECT * FROM cliente WHERE id = ${connection.escape(id)}`;
+        var sqlExists = `SELECT * FROM producto WHERE id = ${connection.escape(id)}`;
       
     connection.query(sqlExists, (err, row) => {
         if (row) {
@@ -38,10 +36,10 @@ clienteModel.getCliente = (id, callBack) => {
     }
 }
 
-clienteModel.insertCliente = (clienteData, callBack) => {
+productoController.insertProducto = (productoData, callBack) => {
     if (connection) {
         connection.query(
-            'INSERT INTO cliente SET ?', clienteData, (err, result) => {
+            'INSERT INTO producto SET ?', productoData, (err, result) => {
 
                 if (err) {
                     throw err;
@@ -57,14 +55,13 @@ clienteModel.insertCliente = (clienteData, callBack) => {
     }
 }
 
-clienteModel.updateCliente = (clienteData, callBack) => {
+productoController.updateProducto = (productoData, callBack) => {
     if (connection) {
-        var sql = `UPDATE cliente SET
-        cedulaCliente=${connection.escape(clienteData.cedulaCliente)}, 
-        nombreCliente=${connection.escape(clienteData.nombreCliente)}, 
-        apellidoCliente=${connection.escape(clienteData.apellidoCliente)},
-        telefonoCliente=${connection.escape(clienteData.telefonoCliente)}
-        WHERE id = ${connection.escape(clienteData.id)}`;
+        console.log("entro en productojs en server")
+        var sql = `UPDATE producto SET
+        nombreProducto=${connection.escape(productoData.nombreProducto)}, 
+        precioProducto=${connection.escape(productoData.precioProducto)} 
+        WHERE id = ${connection.escape(productoData.id)}`;
         connection.query(sql, (err, result) => {
             if (err) {
                 throw err;
@@ -78,19 +75,19 @@ clienteModel.updateCliente = (clienteData, callBack) => {
     }
 }
 
-clienteModel.deletedCliente = async (id, callback) => {
+productoController.deletedProducto = async (id, callback) => {
     if (connection) {
         var sqlExists = `
-        SELECT * FROM cliente WHERE id = ${connection.escape(id)}
+        SELECT * FROM producto WHERE id = ${connection.escape(id)}
       `;
       await connection.query(sqlExists, (err, row) => {
             if (row) {
-                var sql = `DELETE FROM cliente WHERE id=` + connection.escape(id);
+                var sql = `DELETE FROM producto WHERE id=` + connection.escape(id);
                connection.query(sql, (err, result) => {
                     if (err) {
                         throw err;
                     } else {
-                        console.log('usuario eliminado')
+                        console.log('producto eliminado')
                     }
                 });
             } else {
@@ -102,4 +99,4 @@ clienteModel.deletedCliente = async (id, callback) => {
     }
 }
 
-module.exports = clienteModel;
+module.exports = productoController;

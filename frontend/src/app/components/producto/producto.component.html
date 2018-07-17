@@ -1,0 +1,65 @@
+<div class="content">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form #productoForm="ngForm" (ngSubmit)="addProducto(productoForm)">
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="productoService.selectedProducto.id">
+            <span class="card-title" style="text-align: center">Productos</span>
+            
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" name="nombreProducto" #nombreProducto="ngModel" [(ngModel)]="productoService.selectedProducto.nombreProducto"
+                  placeholder="Nombre del producto">
+              </div>
+              <div class="input-field col s12">$
+                <input type="text" name="precioProducto" #precioProducto="ngModel" [(ngModel)]="productoService.selectedProducto.precioProducto"
+                  placeholder="Precio del producto">
+              </div>
+
+              <div class="card-action">
+                <div class="input-field col s12 ">
+                  <button class="btn left">Guardar</button>
+                  <button class="btn right" (click)="resetForm(productoForm)">Limpiar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s7">
+      <table>
+        <thead>
+          <th>id</th>
+          <th>nombre</th>
+          <th>precio</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productoService.productos">
+            <td>{{producto.id}}</td>
+            <td>{{producto.nombreProducto}}</td>
+            <td>$ {{producto.precioProducto}}</td>
+            <td>
+              <a (click)="editProducto(producto)" style="cursor: pointer;">
+                <i class="material-icons">edit</i>
+              </a>
+              <a (click)="deletedProducto(producto.id)" style="color: green; cursor: pointer;">
+                <i class="material-icons">delete</i>
+
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Ocular elemento -->
+  <span [hidden]="true">Oculto</span>
+
+  <!-- Mostrar elemento -->
+  <span [hidden]="false">Visible</span>
+
+</div>

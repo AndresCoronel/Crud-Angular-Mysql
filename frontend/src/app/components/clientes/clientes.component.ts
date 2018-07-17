@@ -44,10 +44,10 @@ export class ClientesComponent implements OnInit {
 
   }
   deletedCliente(id: number ){
-    if(confirm('¿Quieres eliminar esto?')){
+    if(confirm('¿Quieres eliminar este cliente?')){
     this.clienteService.deleteCliente(id)
     .subscribe(res=>{
-      M.toast({html: 'Usuario eliminado'})
+      M.toast({html: 'Cliente eliminado'})
       this.getClientes();  
     } )
   }}
