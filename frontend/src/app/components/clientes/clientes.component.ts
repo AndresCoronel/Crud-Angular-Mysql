@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from "../../services/cliente.service";
 import { NgForm } from '@angular/forms';
 import { Cliente } from '../../models/cliente';
+import { Router } from "@angular/router";
 declare var M: any;
 @Component({
   selector: 'app-users',
@@ -11,7 +12,7 @@ declare var M: any;
 })
 export class ClientesComponent implements OnInit {
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(private router: Router,private clienteService: ClienteService) { }
 
   ngOnInit() {
     this.getClientes();
@@ -64,6 +65,10 @@ export class ClientesComponent implements OnInit {
       this.clienteService.selectedCliente = new Cliente();
     }
 
+  }
+
+  seleccionar(cliente: Cliente){
+    this.clienteService.selectedCliente = cliente;
   }
   
 }

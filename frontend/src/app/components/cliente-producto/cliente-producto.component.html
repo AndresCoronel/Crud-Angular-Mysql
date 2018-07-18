@@ -1,3 +1,109 @@
-<p>
-  cliente-producto works!
-</p>
+<div class="content">
+  <div class="row">
+    <div class="col s6">
+      <div class="card">
+        <div class="card-content">
+          <form #clienteProductoForm="ngForm" (ngSubmit)="addClientesProductos(clienteProductoForm)">
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="clienteproductoService.selectedClienteProducto.id">
+            <span class="card-title" style="text-align: center">Personal Minero</span>
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" name="cliente_id" #cliente_id="ngModel" [(ngModel)]="clienteproductoService.selectedClienteProducto.cliente_id"
+                  placeholder="seleccion el cliente">
+              </div>
+              <input type="hidden" name="cliente_id" #cliente_id="ngModel" [(ngModel)]="clienteService.selectedCliente.id" placeholder="seleccione el cliente">
+
+              <div class="input-field col s12">
+                <input type="text" name="producto_id" #producto_id="ngModel" [(ngModel)]="clienteproductoService.selectedClienteProducto.producto_id"
+                  placeholder="nombres">
+              </div>
+              <input type="hidden" name="producto_id" #producto_id="ngModel" [(ngModel)]="productoService.selectedProducto.id" placeholder="seleccione el cliente">
+
+              <div class="card-action">
+                <div class="input-field col s12 ">
+                  <button class="btn left">Guardar</button>
+                  <button class="btn right" (click)="resetForm(clienteForm)">Limpiar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s6">
+        <table  title="Clientes">
+            <thead>
+              <th>cedula</th>
+              <th>nombre</th>
+              <th>apellidos</th>
+              <th>telefono</th>
+              <th>Operations</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cliente of clienteService.clientes">
+    
+                <td>{{cliente.cedulaCliente}}</td>
+                <td>{{cliente.nombreCliente}}</td>
+                <td>{{cliente.apellidoCliente}}</td>
+                <td>{{cliente.telefonoCliente}}</td>
+                <td>
+                  <a (click)="seleccionarCliente(cliente)" style="cursor: pointer;">seleccionar</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+           <table>
+        <thead title="Productos">
+          <th>id</th>
+          <th>nombre</th>
+          <th>precio</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productoService.productos">
+            <td>{{producto.id}}</td>
+            <td>{{producto.nombreProducto}}</td>
+            <td>$ {{producto.precioProducto}}</td>
+            <td>
+              <a (click)="seleccionarProducto(producto)" style="cursor: pointer;">seleccionar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col s6">
+      <table>
+        <thead>
+          <th>id </th>
+          <th>cliente</th>
+          <th>producto</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let clienteproducto of clienteproductoService.clientesproductos">
+            
+              <td>{{clienteproducto.id}}</td>
+            <td>{{clienteproducto.cliente_id}}</td>
+            <td>{{clienteproducto.producto_id}}</td>
+            <td>
+              <a (click)="editClientesProductos(clienteproducto)" style="cursor: pointer;">
+                <i class="material-icons">edit</i>
+              </a>
+              <a (click)="deletedClientesProductos(clienteproducto.id)" style="color: green; cursor: pointer;">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+    </div>
+  </div>
+  <!-- Ocular elemento -->
+  <span [hidden]="true">Oculto</span>
+
+  <!-- Mostrar elemento -->
+  <span [hidden]="false">Visible</span>
+
+</div>

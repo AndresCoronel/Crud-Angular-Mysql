@@ -17,6 +17,9 @@ const appRoutes: Routes =[
     path:'inicio', component: HomeComponent
   },
   {
+    path:'clienteproducto', component: ClienteProductoComponent
+  },
+  {
     path:'clientes', component: ClientesComponent
   },
   {

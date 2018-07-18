@@ -20,4 +20,7 @@ export class HomeComponent implements OnInit {
         this.clienteService.clientes = res as Cliente[];
       });
   }
+  seleccionar(cliente: Cliente){
+    this.clienteService.selectedCliente = cliente;
+  }
 }

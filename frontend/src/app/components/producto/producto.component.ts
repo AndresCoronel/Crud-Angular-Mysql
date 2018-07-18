@@ -31,7 +31,7 @@ export class ProductoComponent implements OnInit {
       this.productoService.putProducto(form.value).subscribe(res=>{
         console.log(res);
         this.resetForm(form);
-        M.toast({html: 'Cliente actualizado'})
+        M.toast({html: 'Producto actualizado'})
         this.getProductos();
      
       })
@@ -40,7 +40,7 @@ export class ProductoComponent implements OnInit {
       this.productoService.postProducto(form.value).subscribe(res=>{
         console.log(res);
         this.resetForm(form);
-        M.toast({html: 'Cliente agregado'})
+        M.toast({html: 'Producto agregado'})
         this.getProductos();
       })
     }
