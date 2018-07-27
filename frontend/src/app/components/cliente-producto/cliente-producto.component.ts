@@ -6,25 +6,36 @@ import { ClienteProducto } from '../../models/clienteproducto';
 import { ProductoService } from '../../services/producto/producto.service';
 import { Producto } from '../../models/producto';
 import { ClienteService } from '../../services/cliente.service';
+import { Pipe, PipeTransform } from '@angular/core';
+import $ from "jquery";
 declare var M: any;
 @Component({
   selector: 'app-users',
   templateUrl: './cliente-producto.component.html',
   styleUrls: ['./cliente-producto.component.css'],
-  providers: [ClienteProductoService]
+  providers: [ClienteProductoService],
+
 })
 export class ClienteProductoComponent implements OnInit {
 
   constructor(private productoService: ProductoService,
-     private clienteproductoService: ClienteProductoService,
-     private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private clienteproductoService: ClienteProductoService
 
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.getClientesProductos();
     this.getProductos();
     this.getClientes();
+  }
+  getCliente(cp: string) {
+    console.log("llego:"+ cp)
+    this.clienteService.getCliente(cp).subscribe(res => {
+      this.clienteService.cp = res as Cliente[];
+      console.log("res_>"+res.toString)
+    })
+
   }
   getClientes() {
     this.clienteService.getClientes()
@@ -51,19 +62,20 @@ export class ClienteProductoComponent implements OnInit {
       this.clienteproductoService.putClientesProductos(form.value).subscribe(res => {
         console.log(res);
         this.resetForm(form);
-        M.toast({ html: 'clienteProducto actualizado' })
+        M.toast({ html: 'Registr actualizado' })
         this.getClientesProductos();
         this.getProductos();
+        this.getClientes();
 
       })
     } else {
       this.clienteproductoService.postClientesProductos(form.value).subscribe(res => {
         console.log(res);
         this.resetForm(form);
-        M.toast({ html: 'Cliente agregado' })
+        M.toast({ html: 'Registro agregado' })
         this.getClientesProductos();
-
         this.getProductos();
+        this.getClientes();
       })
     }
 
@@ -73,7 +85,7 @@ export class ClienteProductoComponent implements OnInit {
     if (confirm('¿Quieres eliminar este cliente?')) {
       this.clienteproductoService.deleteClientesProductos(id)
         .subscribe(res => {
-          M.toast({ html: 'Cliente eliminado' })
+          M.toast({ html: 'Registro eliminado' })
           this.getClientesProductos();
         })
     }
@@ -102,4 +114,9 @@ export class ClienteProductoComponent implements OnInit {
     this.productoService.selectedProducto = producto;
 
   }
+
+  buscarClienteXproducto(nombreCliente: string) {
+    console.log("llego el clientexproducto " + nombreCliente);
+  }
+  
 }

@@ -16,18 +16,22 @@ export class ClienteProductoService {
 
   getClientesProductos() {
     return this.http.get(this.URL_API);
-   }
+  }
+
+  getClienteProducto(clienteproducto: ClienteProducto) {
+    return this.http.put(this.URL_API + `/${clienteproducto.id}`, clienteproducto);
+  }
 
   postClientesProductos(ClienteProducto: ClienteProducto) {
     return this.http.post(this.URL_API, ClienteProducto);
-   }
+  }
 
-   putClientesProductos(clienteproducto: ClienteProducto){
-    return this.http.put(this.URL_API+ `/${clienteproducto.id}`, clienteproducto);
+  putClientesProductos(clienteproducto: ClienteProducto) {
+    return this.http.put(this.URL_API + `/${clienteproducto.id}`, clienteproducto);
   }
 
   deleteClientesProductos(id: number) {
-    return this.http.delete(this.URL_API+`/${id}`);
-   }
+    return this.http.delete(this.URL_API + `/${id}`);
+  }
 
 }

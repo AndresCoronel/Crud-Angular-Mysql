@@ -180,8 +180,18 @@ module.exports = function (app) {
 
 
 /**************************************Cliente_has_Producto*****************************/
+//cliente producto por cliente
+app.get('/clienteproducto/:nombreCliente', (req, res) => {
+  var nombreCliente = req.params.nombreCliente;
+  ClienteProducto.getProductoXcliente(nombreCliente, (err, data) => {
+    if (data) {
+      res.status(200).json(data);
+  }
+})
+});
 
-app.get('/clienteproducto/:id', (req, res) => {
+//traer el cliente producto por id
+app.get('/clienteproducto', (req, res) => {
   var id = req.params.id;
   ClienteProducto.getClienteProducto(id, (err, data) => {
     if (data) {

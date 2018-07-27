@@ -11,18 +11,20 @@ let clienteproductoModel = {
 
 };
 
-clienteproductoModel.getClienteProducto = (id, callBack) => {
-    if (connection){
-        var sqlExists = `SELECT * FROM cliente_has_producto WHERE id = ${connection.escape(id)}`;
-      
-    connection.query(sqlExists, (err, row) => {
-        if (row) {
-           callBack(null, row);
-           }
-           else {
-               console.log("pailas")
-           }
-   })
+clienteproductoModel.getClienteProducto = (callback) => {
+    if (connection) {
+        var sqlExists = `select c.id, c.nombreCliente, GROUP_CONCAT(p.nombreProducto)
+        from cliente c INNER JOIN cliente_has_producto cp ON c.id = cp.cliente_id
+        INNER JOIN producto p ON cp.producto_id = p.id GROUP BY c.id, c.nombreCliente `;
+
+        connection.query(sqlExists, (err, row) => {
+            if (row) {
+                callBack(null, row);
+            }
+            else {
+                console.log("pailas")
+            }
+        })
     }
 }
 
@@ -82,14 +84,14 @@ clienteproductoModel.deletedClientesProductos = async (id, callback) => {
         var sqlExists = `
         SELECT * FROM cliente_has_producto WHERE id = ${connection.escape(id)}
       `;
-      await connection.query(sqlExists, (err, row) => {
+        await connection.query(sqlExists, (err, row) => {
             if (row) {
                 var sql = `DELETE FROM cliente_has_producto WHERE id=` + connection.escape(id);
-               connection.query(sql, (err, result) => {
+                connection.query(sql, (err, result) => {
                     if (err) {
                         throw err;
                     } else {
-                        console.log('usuario eliminado')
+                        console.log('Registro eliminado')
                     }
                 });
             } else {
@@ -99,6 +101,23 @@ clienteproductoModel.deletedClientesProductos = async (id, callback) => {
             }
         });
     }
+}
+
+clienteproductoModel.getProductoXcliente = (nombreCliente, callBack) => {
+
+    if (connection) {
+        var sqlExists = `SELECT * FROM cliente WHERE nombreCliente = ${connection.escape(nombreCliente)}`;
+
+        connection.query(sqlExists, (err, row) => {
+            if (row) {
+                callBack(null, row);
+            }
+            else {
+                console.log("pailas")
+            }
+        })
+    }
+
 }
 
 module.exports = clienteproductoModel;

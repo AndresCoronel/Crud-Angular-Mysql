@@ -11,6 +11,8 @@ import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ClienteProductoComponent } from './components/cliente-producto/cliente-producto.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { ProductoPipe } from './PIPES/producto.pipe';
 
 const appRoutes: Routes =[
   {
@@ -41,7 +43,10 @@ const appRoutes: Routes =[
     ClientesComponent,
     ProductoComponent,
     HomeComponent,
-    ClienteProductoComponent
+    ClienteProductoComponent,
+    FilterPipe,
+    ProductoPipe
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

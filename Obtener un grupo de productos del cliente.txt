@@ -1,0 +1,3 @@
+select c.id, c.nombreCliente, GROUP_CONCAT(p.nombreProducto)
+from cliente c INNER JOIN cliente_has_producto cp ON c.id = cp.cliente_id
+INNER JOIN producto p ON cp.producto_id = p.id GROUP BY c.id, c.nombreCliente 

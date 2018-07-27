@@ -9,6 +9,10 @@ export class ClienteService {
 
   selectedCliente: Cliente;
   clientes: Cliente[];
+  cp: Cliente[];
+  
+  private nombreCliente: string = '';
+
 
   readonly URL_API = 'http://localhost:3000/cliente';
 
@@ -18,6 +22,10 @@ export class ClienteService {
 
   getClientes(){
     return this.http.get(this.URL_API);
+  }
+  getCliente(id: string){
+    return this.http.delete(this.URL_API+`/${id}` );
+
   }
   postCliente(Cliente: Cliente){
     return this.http.post(this.URL_API, Cliente);

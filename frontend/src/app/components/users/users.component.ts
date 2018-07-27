@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from "../../services/user.service";
 import { NgForm } from '@angular/forms';
 import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 declare var M: any;
 @Component({
   selector: 'app-users',

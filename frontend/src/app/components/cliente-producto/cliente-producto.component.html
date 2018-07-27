@@ -1,6 +1,6 @@
 <div class="content">
   <div class="row">
-    <div class="col s6">
+    <div class="col s3">
       <div class="card">
         <div class="card-content">
           <form #clienteProductoForm="ngForm" (ngSubmit)="addClientesProductos(clienteProductoForm)">
@@ -22,7 +22,7 @@
               <div class="card-action">
                 <div class="input-field col s12 ">
                   <button class="btn left">Guardar</button>
-                  <button class="btn right" (click)="resetForm(clienteForm)">Limpiar</button>
+                  <button class="btn right" (click)="resetForm(clienteProductoForm)">Limpiar</button>
                 </div>
               </div>
             </div>
@@ -31,50 +31,67 @@
       </div>
     </div>
 
-    <div class="col s6">
-        <table  title="Clientes">
-            <thead>
-              <th>cedula</th>
-              <th>nombre</th>
-              <th>apellidos</th>
-              <th>telefono</th>
-              <th>Operations</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let cliente of clienteService.clientes">
-    
-                <td>{{cliente.cedulaCliente}}</td>
-                <td>{{cliente.nombreCliente}}</td>
-                <td>{{cliente.apellidoCliente}}</td>
-                <td>{{cliente.telefonoCliente}}</td>
-                <td>
-                  <a (click)="seleccionarCliente(cliente)" style="cursor: pointer;">seleccionar</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-           <table>
-        <thead title="Productos">
-          <th>id</th>
-          <th>nombre</th>
-          <th>precio</th>
-          <th>Operations</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let producto of productoService.productos">
-            <td>{{producto.id}}</td>
-            <td>{{producto.nombreProducto}}</td>
-            <td>$ {{producto.precioProducto}}</td>
-            <td>
-              <a (click)="seleccionarProducto(producto)" style="cursor: pointer;">seleccionar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col s6">
-      <table>
-        <thead>
+    <form id="filter">
+      <div class="col s5" style="text-align: center">
+        <label style="font: outline;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 20px; color: blue;">Clientes</label>
+        <hr color="blue" size=2>
+        <label for="pro" style="font-size: 16px;color:black; margin-right: 5%">Buscar: </label>
+        <input type="text" name="term" [(ngModel)]="term" placeholder="Buscar por nombre" style="width: 60%">
+
+        <table class="striped">
+          <thead style="font-size: 16px">
+            <th>Id</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Cédula</th>
+            <th>Acciones</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cliente of clienteService.clientes | filter:term ">
+              <td>{{cliente.id}}</td>
+              <td>{{cliente.nombreCliente}}</td>
+              <td>{{cliente.apellidoCliente}}</td>
+              <td>{{cliente.cedulaCliente}}</td>
+              <td>
+                <a (click)="seleccionarCliente(cliente)" style="cursor: pointer;">seleccionar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+
+    <form id="producto">
+      <div class="col s4" style="border-left: 2px solid blue; text-align: center; ">
+        <label style="font: outline;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 20px; color: blue; ">Productos</label>
+        <hr color="blue" size=3>
+        <label for="pro" style="font-size: 16px;color:black; margin-right: 5%">Buscar: </label>
+        <input type="text" name="pro" [(ngModel)]="pro" placeholder="Buscar por nombre" style="width: 60%">
+
+        <table class="striped">
+          <thead title="Productos" style="font-size: 16px">
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of productoService.productos | producto:pro">
+              <td>{{producto.id}}</td>
+              <td>{{producto.nombreProducto}}</td>
+              <td>$ {{producto.precioProducto}}</td>
+              <td>
+                <a (click)="seleccionarProducto(producto)" style="cursor: pointer;">seleccionar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+
+    <div class="col s10">
+      <table class="striped">
+        <thead style="font-size: 16px">
           <th>id </th>
           <th>cliente</th>
           <th>producto</th>
@@ -82,8 +99,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let clienteproducto of clienteproductoService.clientesproductos">
-            
-              <td>{{clienteproducto.id}}</td>
+
+            <td>{{clienteproducto.id}}</td>
             <td>{{clienteproducto.cliente_id}}</td>
             <td>{{clienteproducto.producto_id}}</td>
             <td>
@@ -97,7 +114,7 @@
           </tr>
         </tbody>
       </table>
-      
+
     </div>
   </div>
   <!-- Ocular elemento -->
